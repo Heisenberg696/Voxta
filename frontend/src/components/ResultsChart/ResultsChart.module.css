@@ -1,0 +1,112 @@
+/* src/components/ResultsChart/ResultsChart.module.css */
+
+.chartContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: 1rem;
+}
+
+.voteDistributionTitle {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 2rem;
+  align-self: flex-start;
+}
+
+.barChart {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-end;
+  width: 100%;
+  height: 320px; /* Increased height to accommodate percentage labels */
+  border-bottom: 1px solid #4a5568;
+  padding-bottom: 50px; /* Fixed space for labels */
+  gap: 1rem;
+}
+
+.barWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80px; /* Slightly wider for longer labels */
+  position: relative;
+  height: 100%; /* Full height to contain percentage and bar */
+}
+
+.barContainer {
+  position: relative;
+  width: 60px; /* Fixed width for the actual bar */
+  height: 200px; /* Fixed height container for bars only */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 40px; /* Space for percentage label above */
+}
+
+.bar {
+  background-color: #4299e1;
+  width: 100%;
+  min-height: 10px;
+  border-radius: 4px 4px 0 0;
+  transition: height 0.5s ease-out;
+  position: relative;
+}
+
+.barPercentage {
+  position: absolute;
+  top: 15px; /* Positioned at the top of barWrapper, well above the bar */
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #4fd1c5;
+  white-space: nowrap;
+  z-index: 10; /* Ensure it's above other elements */
+}
+
+.barLabel {
+  margin-top: 10px; /* Fixed margin */
+  font-size: 0.85rem; /* Slightly smaller */
+  color: #a0aec0;
+  text-align: center;
+  word-break: break-word;
+  line-height: 1.1;
+  height: 35px; /* Fixed height for labels */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .barChart {
+    gap: 0.25rem;
+    padding-bottom: 45px;
+    height: 300px; /* Adjusted for mobile */
+  }
+
+  .barWrapper {
+    width: 70px;
+  }
+
+  .barContainer {
+    width: 50px;
+    height: 180px;
+    margin-top: 35px; /* Adjusted for mobile */
+  }
+
+  .barLabel {
+    font-size: 0.75rem;
+    height: 32px;
+  }
+
+  .barPercentage {
+    font-size: 0.7rem;
+    top: 12px; /* Adjusted for mobile */
+  }
+}

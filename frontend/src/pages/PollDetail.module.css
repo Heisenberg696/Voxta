@@ -1,0 +1,156 @@
+.pollDetail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto;
+  background-color: #1a202c; /* Ensure consistent background */
+  color: #ffffff;
+}
+
+.question {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #ffffff;
+  text-align: left; /* Aligned to left as per image */
+  width: 100%; /* Take full width */
+  margin-bottom: 2rem;
+}
+
+.optionsList {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2.5rem; /* More space before button */
+}
+
+.option {
+  background-color: #2d3748;
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  transition: background-color 0.2s ease-in-out, border 0.2s ease-in-out;
+  font-size: 1.1rem;
+  font-weight: 500;
+  position: relative;
+  border: 1px solid transparent; /* Default transparent border */
+}
+
+.option:hover:not(.disabled) {
+  background-color: #3f4a5b; /* Slightly lighter on hover */
+}
+
+/* Custom Radio Button Styling */
+.radioCustom {
+  display: inline-block;
+  width: 1.25rem;
+  height: 1.25rem;
+  border: 2px solid #a0aec0; /* Grey border for unselected */
+  border-radius: 50%;
+  margin-right: 1rem;
+  flex-shrink: 0;
+  position: relative;
+  background-color: transparent;
+  transition: all 0.2s ease-in-out;
+}
+
+.option.selected .radioCustom {
+  background-color: #5a67d8; /* Purple fill for selected radio button */
+  border-color: #5a67d8; /* Purple border for selected */
+}
+
+.option.selected .radioCustom::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 0.6rem;
+  height: 0.6rem;
+  background-color: #ffffff; /* White dot inside selected radio */
+  border-radius: 50%;
+}
+
+.optionText {
+  flex-grow: 1; /* Allow text to take remaining space */
+}
+
+.option.disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  background-color: #2d3748; /* Keep background consistent */
+}
+
+.option.disabled .radioCustom {
+  border-color: #4a5568; /* Slightly darker grey for disabled radio */
+}
+.option.disabled.selected .radioCustom {
+  background-color: #5a67d8; /* Still show selected state if already voted */
+  border-color: #5a67d8;
+}
+
+.submitButton {
+  background-color: #5a67d8; /* Purple submit button */
+  color: #ffffff;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+  width: auto; /* Auto width to fit content */
+  min-width: 150px; /* Minimum width */
+  align-self: flex-end; /* Align to the right as per image */
+  margin-bottom: 3.5rem; /* Space before results section */
+}
+
+.submitButton:hover:not(:disabled) {
+  background-color: #4c57b6; /* Darker purple on hover */
+}
+
+.submitButton:disabled {
+  background-color: #4a5568; /* Greyed out when disabled */
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.resultsSection {
+  background-color: #2d3748; /* Darker background for results section */
+  border-radius: 12px;
+  padding: 2rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center contents within the section */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.resultsTitle {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  color: #ffffff;
+  align-self: flex-start; /* Align title to the left */
+}
+
+.loginMessage {
+  text-align: center;
+  margin-bottom: 1rem;
+  color: #a0aec0;
+  font-size: 1rem;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  color: #ffffff;
+  font-size: 1.2rem;
+}

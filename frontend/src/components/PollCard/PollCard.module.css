@@ -1,0 +1,148 @@
+/* src/components/PollCard/PollCard.module.css */
+
+.cardLink {
+  text-decoration: none; /* Remove underline from Link */
+  color: inherit; /* Inherit text color */
+  width: 100%;
+}
+
+.pollCard {
+  display: flex;
+  align-items: center;
+  background-color: #2d3748; /* Darker blue/grey background */
+  border-radius: 12px; /* More rounded corners */
+  padding: 1.5rem 2rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.pollCard:hover {
+  transform: translateY(-5px); /* Lift effect on hover */
+}
+
+.votesContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 2rem;
+  flex-shrink: 0; /* Prevent it from shrinking */
+}
+
+.votesCount {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #4fd1c5; /* Teal color for votes */
+}
+
+.votesText {
+  font-size: 0.9rem;
+  color: #a0aec0; /* Lighter grey for "votes" text */
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.content {
+  flex-grow: 1; /* Allow content to take available space */
+}
+
+.categoryBadge {
+  display: inline-block;
+  padding: 0.3rem 0.7rem;
+  border-radius: 9999px; /* Pill shape */
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  /* Dynamic background colors based on image categories */
+  background-color: #6b46c1; /* Example: Purple for Travel & Leisure */
+  color: #ffffff;
+}
+
+/* Example category-specific colors (you'll need to implement logic to apply these) */
+.pollCard:nth-child(1) .categoryBadge {
+  background-color: #6b46c1; /* Travel & Leisure */
+}
+.pollCard:nth-child(2) .categoryBadge {
+  background-color: #dd6b20; /* Technology */
+}
+.pollCard:nth-child(3) .categoryBadge {
+  background-color: #38a169; /* Food & Drink */
+}
+.pollCard:nth-child(4) .categoryBadge {
+  background-color: #d53f8c; /* Music */
+}
+.pollCard:nth-child(5) .categoryBadge {
+  background-color: #e53e3e; /* Entertainment */
+}
+.pollCard:nth-child(6) .categoryBadge {
+  background-color: #ecc94b; /* Lifestyle */
+}
+
+.question {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 0.3rem;
+}
+
+.creator {
+  font-size: 0.9rem;
+  color: #a0aec0;
+}
+
+/* Styles for the Vote Button (already there, just ensuring consistency) */
+.voteButton {
+  background-color: #4299e1; /* Blue for the vote button */
+  color: #ffffff;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+  flex-shrink: 0;
+  margin-left: 2rem;
+}
+
+.voteButton:hover {
+  background-color: #3182ce; /* Darker blue on hover */
+}
+
+/* --- NEW STYLES FOR ACTION BUTTONS --- */
+.actionButtons {
+  display: flex;
+  gap: 0.75rem; /* Space between update and delete buttons */
+  margin-left: 2rem;
+  flex-shrink: 0;
+}
+
+.updateButton,
+.deleteButton {
+  background: none; /* No background by default */
+  border: none;
+  cursor: pointer;
+  padding: 0.75rem; /* Padding to make them clickable */
+  border-radius: 8px;
+  display: flex; /* For icon centering */
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.updateButton {
+  color: #4fd1c5; /* Teal for update icon */
+}
+
+.updateButton:hover {
+  background-color: #384252; /* Slight dark background on hover */
+}
+
+.deleteButton {
+  color: #e53e3e; /* Red for delete icon */
+}
+
+.deleteButton:hover {
+  background-color: #384252; /* Slight dark background on hover */
+}
+/* --- END NEW STYLES --- */

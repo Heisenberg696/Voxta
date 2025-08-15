@@ -1,0 +1,96 @@
+/* src/pages/Home.module.css */
+
+.home {
+  display: flex;
+  gap: 2rem;
+  padding: 2rem;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.leftSection {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 0;
+}
+
+.rightSection {
+  width: 400px;
+  flex-shrink: 0;
+}
+
+.title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 2rem;
+  align-self: flex-start;
+}
+
+.filterBar {
+  width: 100%;
+  margin-bottom: 2rem;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.categorySelect {
+  background-color: #2d3748;
+  color: #ffffff;
+  border: none;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  appearance: none;
+  background-image: url('data:image/svg+xml;utf8,<svg fill="%23ffffff" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
+  background-repeat: no-repeat;
+  background-position: right 0.7rem top 50%;
+  background-size: 20px auto;
+}
+
+.categorySelect:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #4299e1;
+}
+
+.pollList {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  width: 100%;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  color: #ffffff;
+  font-size: 1.2rem;
+}
+
+.loginPrompt {
+  text-align: center;
+  margin-top: 3rem;
+  font-size: 1.1rem;
+  color: #a0aec0;
+}
+
+/* Responsive design */
+@media (max-width: 1024px) {
+  .home {
+    flex-direction: column;
+  }
+
+  .rightSection {
+    width: 100%;
+  }
+
+  .leftSection {
+    width: 100%;
+  }
+}

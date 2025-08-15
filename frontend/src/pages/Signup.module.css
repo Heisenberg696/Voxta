@@ -1,0 +1,83 @@
+/* Signup.module.css */
+
+.signup {
+  background-color: #2d3748; /* Slightly lighter dark blue for the form background */
+  padding: 2.5rem; /* Increased padding for a more spacious look */
+  border-radius: 0.75rem; /* Rounded corners */
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05); /* Subtle shadow */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center items horizontally within the form */
+  width: 100%; /* Take full width of its container */
+  max-width: 400px; /* Max width for the form */
+  margin: 1rem; /* Add some margin for smaller screens */
+}
+
+.signup h2 {
+  color: #ffffff;
+  margin-bottom: 2rem; /* Space below the heading */
+  font-size: 1.875rem; /* Larger font size for the heading */
+  font-weight: 600; /* Semi-bold */
+}
+
+.signup input {
+  width: 100%;
+  padding: 1rem 1.25rem; /* Generous padding for inputs */
+  margin-bottom: 1.25rem; /* Space between inputs */
+  border: none;
+  border-radius: 0.5rem; /* Rounded corners for inputs */
+  background-color: #4a5568; /* Darker background for inputs */
+  color: #ffffff;
+  font-size: 1rem;
+  outline: none; /* Remove outline on focus */
+  transition: background-color 0.2s ease-in-out;
+}
+
+.signup input::placeholder {
+  color: #a0aec0; /* Lighter placeholder text */
+}
+
+.signup input:focus {
+  background-color: #636b77; /* Slightly lighter on focus */
+}
+
+.signup button {
+  width: 100%;
+  padding: 1rem 1.25rem;
+  background-color: #3182ce; /* Blue button color */
+  color: #ffffff;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 1.125rem; /* Larger font for button */
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+  margin-top: 0.5rem; /* Space above the button */
+}
+
+.signup button:hover:not(:disabled) {
+  background-color: #2c5282; /* Darker blue on hover */
+}
+
+.signup button:disabled {
+  background-color: #4a5568; /* Greyed out when disabled */
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.signup .error {
+  color: #fc8181; /* Red color for error messages */
+  margin-top: 1rem;
+  font-size: 0.875rem;
+  text-align: center;
+}
+
+.termsText {
+  color: #a0aec0; /* Lighter grey color */
+  font-size: 0.75rem; /* Smaller font size */
+  margin-top: 1.5rem; /* Space above the text */
+  text-align: center;
+  line-height: 1.4;
+  max-width: 80%; /* Limit width to prevent it from being too wide */
+}

@@ -1,0 +1,131 @@
+/* src/components/Navbar/Navbar.module.css */
+
+.navbar {
+  background-color: #1a202c; /* Dark background from your index.css */
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  position: fixed; /* Make it stick to the top */
+  top: 0;
+  left: 0;
+  z-index: 1000; /* Ensure it stays on top of other content */
+}
+
+.leftSection {
+  display: flex;
+  align-items: center;
+}
+
+.logoLink {
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  color: #ffffff;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-right: 1.5rem; /* Space between logo and first nav link if present */
+}
+
+.logo {
+  height: 40px; /* Adjust height as needed */
+  border-radius: 8px; /* Rounded corners for the logo image */
+  margin-right: 10px;
+}
+
+.navLinks {
+  display: flex;
+  gap: 1.5rem; /* Space between navigation items */
+}
+
+.navItem {
+  text-decoration: none;
+  color: #a0aec0; /* Lighter grey for inactive links */
+  font-weight: 500;
+  transition: color 0.2s ease-in-out;
+  padding: 0.5rem 0.8rem; /* Add some padding for better click area */
+  border-radius: 6px;
+}
+
+.navItem:hover {
+  color: #ffffff; /* White on hover */
+  background-color: #2d3748; /* Slight background on hover */
+}
+
+.rightSection {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem; /* Space between user info/auth links and other elements if any */
+}
+
+.userInfo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem; /* Space between username and icon */
+  background-color: #2d3748; /* Darker background for user info bubble */
+  padding: 0.5rem 1rem;
+  border-radius: 9999px; /* Pill shape */
+}
+
+.usernameText {
+  color: #4fd1c5; /* Teal color for username */
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.userIcon {
+  color: #a0aec0; /* Grey color for the user icon */
+}
+
+.logoutButton {
+  background-color: #e53e3e; /* Red for logout */
+  color: #ffffff;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.logoutButton:hover {
+  background-color: #c53030; /* Darker red on hover */
+}
+
+.authLinks {
+  display: flex;
+  gap: 1rem;
+}
+
+.loginButton,
+.signupButton {
+  text-decoration: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all 0.2s ease-in-out;
+}
+
+.loginButton {
+  color: #a0aec0;
+  border: 1px solid #4a5568; /* Subtle border for login */
+}
+
+.loginButton:hover {
+  color: #ffffff;
+  background-color: #4a5568;
+}
+
+.signupButton {
+  background-color: #4299e1; /* Blue for signup */
+  color: #ffffff;
+  border: none;
+}
+
+.signupButton:hover {
+  background-color: #3182ce;
+}
