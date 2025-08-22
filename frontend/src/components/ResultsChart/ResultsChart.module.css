@@ -6,6 +6,7 @@
   align-items: center;
   width: 100%;
   padding: 1rem;
+  overflow: hidden; /* Prevent any overflow */
 }
 
 .voteDistributionTitle {
@@ -21,92 +22,164 @@
   justify-content: space-around;
   align-items: flex-end;
   width: 100%;
-  height: 320px; /* Increased height to accommodate percentage labels */
+  min-height: 320px; /* Use min-height instead of fixed height */
+  max-height: 400px; /* Add max height to prevent overflow */
   border-bottom: 1px solid #4a5568;
-  padding-bottom: 50px; /* Fixed space for labels */
-  gap: 1rem;
+  padding-bottom: 50px;
+  gap: 0.5rem; /* Reduced gap for many options */
+  overflow-x: auto; /* Allow horizontal scroll if needed */
+  overflow-y: hidden;
 }
 
 .barWrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 80px; /* Slightly wider for longer labels */
+  min-width: 60px; /* Minimum width to ensure visibility */
+  max-width: 80px; /* Maximum width for consistency */
+  flex: 1; /* Allow bars to distribute evenly */
   position: relative;
-  height: 100%; /* Full height to contain percentage and bar */
+  height: 100%;
 }
 
 .barContainer {
   position: relative;
-  width: 60px; /* Fixed width for the actual bar */
-  height: 200px; /* Fixed height container for bars only */
+  width: 100%; /* Use full wrapper width */
+  height: 200px;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
   align-items: center;
-  margin-top: 40px; /* Space for percentage label above */
+  margin-top: 40px;
 }
 
 .bar {
   background-color: #4299e1;
   width: 100%;
-  min-height: 10px;
+  min-height: 8px; /* Minimum height for visibility even with 0 votes */
   border-radius: 4px 4px 0 0;
   transition: height 0.5s ease-out;
   position: relative;
 }
 
+.bar.zeroVotes {
+  background-color: #2d3748; /* Darker color for zero votes */
+  opacity: 0.6;
+  min-height: 8px; /* Still visible but subtle */
+}
+
 .barPercentage {
   position: absolute;
-  top: 15px; /* Positioned at the top of barWrapper, well above the bar */
+  top: -25px; /* Positioned above the bar */
   left: 50%;
   transform: translateX(-50%);
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   font-weight: 600;
   color: #4fd1c5;
   white-space: nowrap;
-  z-index: 10; /* Ensure it's above other elements */
+  z-index: 10;
+}
+
+.barPercentage.zeroVotes {
+  color: #6b7280; /* Muted color for zero votes */
 }
 
 .barLabel {
-  margin-top: 10px; /* Fixed margin */
-  font-size: 0.85rem; /* Slightly smaller */
+  margin-top: 10px;
+  font-size: 0.8rem;
   color: #a0aec0;
   text-align: center;
   word-break: break-word;
   line-height: 1.1;
-  height: 35px; /* Fixed height for labels */
+  height: 35px;
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-/* Responsive adjustments */
-@media (max-width: 600px) {
+/* Responsive adjustments for many options */
+@media (max-width: 900px) {
   .barChart {
     gap: 0.25rem;
-    padding-bottom: 45px;
-    height: 300px; /* Adjusted for mobile */
+    padding: 0 0.5rem 50px 0.5rem;
   }
 
   .barWrapper {
-    width: 70px;
-  }
-
-  .barContainer {
-    width: 50px;
-    height: 180px;
-    margin-top: 35px; /* Adjusted for mobile */
+    min-width: 50px;
+    max-width: 70px;
   }
 
   .barLabel {
     font-size: 0.75rem;
-    height: 32px;
+    height: 30px;
   }
 
   .barPercentage {
     font-size: 0.7rem;
-    top: 12px; /* Adjusted for mobile */
+  }
+}
+
+@media (max-width: 600px) {
+  .barChart {
+    gap: 0.2rem;
+    padding-bottom: 45px;
+    min-height: 280px;
+    max-height: 320px;
+  }
+
+  .barWrapper {
+    min-width: 40px;
+    max-width: 60px;
+  }
+
+  .barContainer {
+    height: 160px;
+    margin-top: 30px;
+  }
+
+  .barLabel {
+    font-size: 0.7rem;
+    height: 28px;
+  }
+
+  .barPercentage {
+    font-size: 0.65rem;
+    top: -20px;
+  }
+}
+
+/* Special handling for many options (7+) */
+.barChart[data-option-count="7"],
+.barChart[data-option-count="8"],
+.barChart[data-option-count="9"],
+.barChart[data-option-count="10"] {
+  gap: 0.3rem;
+}
+
+.barChart[data-option-count="7"] .barWrapper,
+.barChart[data-option-count="8"] .barWrapper,
+.barChart[data-option-count="9"] .barWrapper,
+.barChart[data-option-count="10"] .barWrapper {
+  min-width: 45px;
+  max-width: 65px;
+}
+
+@media (max-width: 600px) {
+  .barChart[data-option-count="7"],
+  .barChart[data-option-count="8"],
+  .barChart[data-option-count="9"],
+  .barChart[data-option-count="10"] {
+    gap: 0.1rem;
+  }
+
+  .barChart[data-option-count="7"] .barWrapper,
+  .barChart[data-option-count="8"] .barWrapper,
+  .barChart[data-option-count="9"] .barWrapper,
+  .barChart[data-option-count="10"] .barWrapper {
+    min-width: 35px;
+    max-width: 50px;
   }
 }

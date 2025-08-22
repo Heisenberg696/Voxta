@@ -40,11 +40,33 @@ const pollSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
     },
-    //  NEW: Track users who have voted (optional use for future)
+    // Keep existing votedBy for backward compatibility
     votedBy: [
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
+      },
+    ],
+    // NEW: Track specific votes with user and option details
+    userVotes: [
+      {
+        userId: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "User",
+          required: true,
+        },
+        optionId: {
+          type: mongoose.Schema.Types.ObjectId,
+          required: true,
+        },
+        optionText: {
+          type: String,
+          required: true,
+        },
+        votedAt: {
+          type: Date,
+          default: Date.now,
+        },
       },
     ],
   },

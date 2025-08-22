@@ -1,5 +1,6 @@
 // src/pages/VotedPolls.js
 import React, { useState, useEffect } from "react";
+import API_BASE_URL from "../config/api";
 import axios from "axios";
 import styles from "./VotedPolls.module.css";
 import PollCard from "../components/PollCard/PollCard";
@@ -16,7 +17,7 @@ const VotedPolls = () => {
     const fetchVotedPolls = async () => {
       setLoading(true);
       try {
-        const response = await axios.get("/api/polls/voted", {
+        const response = await axios.get(`${API_BASE_URL}/api/polls/voted`, {
           headers: {
             Authorization: user ? `Bearer ${user.token}` : "",
           },

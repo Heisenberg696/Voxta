@@ -9,7 +9,7 @@ const ResultsChart = ({ options, totalVotes }) => {
     <div className={styles.chartContainer}>
       <h3 className={styles.voteDistributionTitle}>Vote Distribution</h3>
 
-      <div className={styles.barChart}>
+      <div className={styles.barChart} data-option-count={options.length}>
         {options.map((option) => {
           // Calculate percentage for display
           const percentage =
@@ -20,22 +20,28 @@ const ResultsChart = ({ options, totalVotes }) => {
           const barHeight =
             totalVotes === 0 ? 0 : (option.votes / maxVotes) * 100;
 
+          const hasVotes = option.votes > 0;
+
           return (
             <div key={option._id} className={styles.barWrapper}>
               <div className={styles.barContainer}>
                 <div
-                  className={styles.bar}
-                  style={{ height: `${barHeight}%` }}
+                  className={`${styles.bar} ${
+                    !hasVotes ? styles.zeroVotes : ""
+                  }`}
+                  style={{ height: `${Math.max(barHeight, 4)}%` }} // Minimum 4% height for visibility
                   title={`${option.option}: ${option.votes} votes (${Math.round(
                     percentage
                   )}%)`}
                 ></div>
-                {/* Show percentage on top of each bar */}
-                {percentage > 0 && (
-                  <span className={styles.barPercentage}>
-                    {Math.round(percentage)}%
-                  </span>
-                )}
+                {/* Always show percentage, even for 0 votes */}
+                <span
+                  className={`${styles.barPercentage} ${
+                    !hasVotes ? styles.zeroVotes : ""
+                  }`}
+                >
+                  {Math.round(percentage)}%
+                </span>
               </div>
               <span className={styles.barLabel}>{option.option}</span>
             </div>

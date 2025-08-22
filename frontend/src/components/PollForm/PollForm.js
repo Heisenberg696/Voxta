@@ -1,5 +1,6 @@
 // src/components/PollForm/PollForm.js
 import React, { useState } from "react";
+import API_BASE_URL from "../../config/api";
 import axios from "axios";
 import styles from "./PollForm.module.css";
 import { useAuthContext } from "../../hooks/useAuthContext";
@@ -25,7 +26,7 @@ const PollForm = () => {
     "Travel & Leisure",
     "Food & Drink",
     "Media",
-    "Lifestyle",  
+    "Lifestyle",
     "Education",
     "Health",
     "Politics",
@@ -92,7 +93,7 @@ const PollForm = () => {
         createdBy: user._id,
       };
 
-      const response = await axios.post("/api/polls", pollData, {
+      const response = await axios.post(`${API_BASE_URL}/api/polls`, pollData, {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },

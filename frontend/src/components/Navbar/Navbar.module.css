@@ -1,131 +1,416 @@
 /* src/components/Navbar/Navbar.module.css */
 
+/* Main navbar container with glassmorphism effect */
 .navbar {
-  background-color: #1a202c; /* Dark background from your index.css */
-  padding: 1rem 2rem;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  padding: 1.25rem 0; /* Increased vertical padding for more height */
+  background-color: rgba(
+    26,
+    32,
+    44,
+    0.85
+  ); /* Slightly more opaque for better readability */
+  backdrop-filter: blur(12px); /* Enhanced blur for better glass effect */
+  -webkit-backdrop-filter: blur(12px); /* For Safari */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12); /* More visible border */
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+/* Centered container for content */
+.container {
+  width: 100%;
+  max-width: 1320px; /* Slightly larger max width */
+  margin: 0 auto;
+  padding: 0 2.5rem; /* Increased side padding */
   display: flex;
   justify-content: space-between;
   align-items: center;
-  color: #ffffff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  width: 100%;
-  position: fixed; /* Make it stick to the top */
-  top: 0;
-  left: 0;
-  z-index: 1000; /* Ensure it stays on top of other content */
+  height: 100%; /* Ensure full height usage */
 }
 
-.leftSection {
-  display: flex;
-  align-items: center;
-}
-
+/* Logo and Brand Name */
 .logoLink {
-  text-decoration: none;
   display: flex;
   align-items: center;
+  gap: 0.875rem; /* Slightly more gap */
+  text-decoration: none;
   color: #ffffff;
-  font-size: 1.5rem;
-  font-weight: 700;
-  margin-right: 1.5rem; /* Space between logo and first nav link if present */
+  transition: transform 0.2s ease;
+}
+
+.logoLink:hover {
+  transform: translateY(-1px); /* Subtle hover lift */
+}
+
+.logoLink:hover .logo {
+  transform: scale(1.05);
+  filter: brightness(1.1);
 }
 
 .logo {
-  height: 40px; /* Adjust height as needed */
-  border-radius: 8px; /* Rounded corners for the logo image */
-  margin-right: 10px;
+  height: 42px; /* Slightly larger logo */
+  width: 42px;
+  object-fit: contain;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+.brandName {
+  font-size: 1.875rem; /* Larger brand name */
+  font-weight: 800; /* Extra bold for impact */
+  letter-spacing: -0.8px; /* Tighter letter spacing */
+  margin: 0;
+  background: linear-gradient(135deg, #ffffff, #f7fafc);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Desktop Navigation Links */
 .navLinks {
   display: flex;
-  gap: 1.5rem; /* Space between navigation items */
+  gap: 0.5rem; /* Reduced gap for better spacing */
+  align-items: center;
 }
 
 .navItem {
   text-decoration: none;
-  color: #a0aec0; /* Lighter grey for inactive links */
+  color: #a0aec0;
   font-weight: 500;
-  transition: color 0.2s ease-in-out;
-  padding: 0.5rem 0.8rem; /* Add some padding for better click area */
-  border-radius: 6px;
+  font-size: 0.95rem;
+  padding: 0.75rem 1.25rem; /* Better padding proportions */
+  border-radius: 10px; /* Slightly more rounded */
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  white-space: nowrap;
 }
 
 .navItem:hover {
-  color: #ffffff; /* White on hover */
-  background-color: #2d3748; /* Slight background on hover */
+  color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.08);
+  transform: translateY(-1px);
 }
 
+/* Style for the active NavLink */
+.navItem.active {
+  color: #ffffff;
+  font-weight: 600;
+  background-color: rgba(66, 153, 225, 0.15);
+  box-shadow: 0 0 0 1px rgba(66, 153, 225, 0.2);
+}
+
+.navItem.active::before {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  height: 2px;
+  background: linear-gradient(90deg, #4299e1, #63b3ed);
+  border-radius: 1px;
+}
+
+/* Right section containing auth/user menu */
 .rightSection {
   display: flex;
   align-items: center;
-  gap: 1.5rem; /* Space between user info/auth links and other elements if any */
+  gap: 1.25rem; /* Increased gap */
 }
 
-.userInfo {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem; /* Space between username and icon */
-  background-color: #2d3748; /* Darker background for user info bubble */
-  padding: 0.5rem 1rem;
-  border-radius: 9999px; /* Pill shape */
-}
-
-.usernameText {
-  color: #4fd1c5; /* Teal color for username */
-  font-weight: 600;
-  font-size: 1rem;
-}
-
-.userIcon {
-  color: #a0aec0; /* Grey color for the user icon */
-}
-
-.logoutButton {
-  background-color: #e53e3e; /* Red for logout */
-  color: #ffffff;
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 8px;
-  font-size: 0.9rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background-color 0.2s ease-in-out;
-}
-
-.logoutButton:hover {
-  background-color: #c53030; /* Darker red on hover */
-}
-
+/* Logged-out state buttons */
 .authLinks {
   display: flex;
-  gap: 1rem;
+  align-items: center;
+  gap: 0.875rem; /* Better spacing */
 }
 
 .loginButton,
 .signupButton {
   text-decoration: none;
-  padding: 0.6rem 1.2rem;
-  border-radius: 8px;
+  padding: 0.75rem 1.5rem; /* Better padding */
+  border-radius: 10px;
   font-weight: 600;
-  transition: all 0.2s ease-in-out;
+  font-size: 0.9rem;
+  border: 1px solid transparent;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
 }
 
 .loginButton {
-  color: #a0aec0;
-  border: 1px solid #4a5568; /* Subtle border for login */
+  color: #e2e8f0;
+  background-color: rgba(74, 85, 104, 0.6);
+  border-color: rgba(74, 85, 104, 0.8);
 }
 
 .loginButton:hover {
-  color: #ffffff;
   background-color: #4a5568;
+  color: #ffffff;
+  border-color: #4a5568;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(74, 85, 104, 0.3);
 }
 
 .signupButton {
-  background-color: #4299e1; /* Blue for signup */
+  background: linear-gradient(135deg, #4299e1, #3182ce);
   color: #ffffff;
-  border: none;
+  position: relative;
 }
 
 .signupButton:hover {
-  background-color: #3182ce;
+  background: linear-gradient(135deg, #3182ce, #2c5aa0);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(66, 153, 225, 0.4);
+}
+
+/* Logged-in state user menu */
+.userMenuContainer {
+  position: relative;
+}
+
+.userButton {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem; /* Better spacing */
+  background-color: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 0.75rem 1.25rem; /* Increased padding */
+  border-radius: 12px; /* Less rounded than pill */
+  color: #ffffff;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  min-width: fit-content;
+}
+
+.userButton:hover {
+  background-color: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.userIcon {
+  color: #cbd5e0;
+  flex-shrink: 0;
+}
+
+.usernameText {
+  font-weight: 500;
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+.chevronIcon {
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  flex-shrink: 0;
+}
+
+.chevronOpen {
+  transform: rotate(180deg);
+}
+
+/* Dropdown Menu */
+.dropdownMenu {
+  position: absolute;
+  top: calc(100% + 12px); /* Increased spacing from button */
+  right: 0;
+  width: 240px; /* Slightly wider */
+  background-color: rgba(45, 55, 72, 0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 14px; /* More rounded */
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3),
+    0 0 0 1px rgba(255, 255, 255, 0.05);
+  padding: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.dropdownHeader {
+  padding: 1rem 1.25rem;
+  font-size: 0.8rem;
+  color: #a0aec0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  margin-bottom: 0.75rem;
+  line-height: 1.4;
+}
+
+.dropdownHeader strong {
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.dropdownItem {
+  text-decoration: none;
+  color: #cbd5e0;
+  padding: 0.875rem 1.25rem;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  background: none;
+  border: none;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.dropdownItem:hover {
+  background-color: #4299e1;
+  color: #ffffff;
+  transform: translateX(2px);
+}
+
+.dropdownDivider {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.1),
+    transparent
+  );
+  margin: 0.75rem 0;
+}
+
+.logoutButton {
+  color: #fc8181; /* Softer red */
+}
+
+.logoutButton:hover {
+  background-color: #e53e3e;
+  color: #ffffff;
+}
+
+/* --- Mobile Responsiveness --- */
+
+.mobileMenuButton {
+  display: none;
+  background: none;
+  border: none;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.mobileMenuButton button {
+  background: transparent;
+  border: none;
+  color: inherit;
+  padding: 0.75rem;
+  border-radius: 8px;
+  transition: background-color 0.2s ease;
+}
+
+.mobileMenuButton button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.mobileMenu {
+  display: none;
+}
+
+/* Tablet and Mobile Styles */
+@media (max-width: 768px) {
+  .navbar {
+    padding: 1rem 0; /* Slightly less padding on mobile */
+  }
+
+  .container {
+    padding: 0 1.5rem; /* Better mobile padding */
+  }
+
+  .brandName {
+    font-size: 1.625rem; /* Smaller on mobile */
+  }
+
+  .logo {
+    height: 36px;
+    width: 36px;
+  }
+
+  .navLinks,
+  .authLinks,
+  .userMenuContainer {
+    display: none;
+  }
+
+  .mobileMenuButton {
+    display: block;
+  }
+
+  .mobileMenu {
+    display: block;
+    position: fixed;
+    top: 80px; /* Adjusted for increased navbar height */
+    left: 0;
+    width: 100%;
+    height: calc(100vh - 80px);
+    background-color: rgba(26, 32, 44, 0.97);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    padding: 2.5rem 1.5rem;
+  }
+
+  .mobileNavLinks {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem; /* More spacing on mobile */
+  }
+
+  .mobileNavItem {
+    text-decoration: none;
+    color: #a0aec0;
+    font-size: 1.375rem; /* Better mobile font size */
+    font-weight: 600;
+    padding: 1rem 1.5rem;
+    border-radius: 12px;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    min-width: 200px;
+    justify-content: center;
+  }
+
+  .mobileNavItem:hover,
+  .mobileNavItem.active {
+    color: #ffffff;
+    background-color: rgba(66, 153, 225, 0.15);
+    transform: scale(1.05);
+  }
+}
+
+/* Small mobile devices */
+@media (max-width: 480px) {
+  .container {
+    padding: 0 1rem;
+  }
+
+  .brandName {
+    font-size: 1.5rem;
+  }
+
+  .mobileMenu {
+    padding: 2rem 1rem;
+  }
+
+  .mobileNavItem {
+    font-size: 1.25rem;
+    min-width: 180px;
+  }
 }

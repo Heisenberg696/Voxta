@@ -1,0 +1,133 @@
+.commentsSection {
+  margin-top: 40px;
+  padding: 0;
+}
+
+.sectionHeader {
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.sectionTitle {
+  font-size: 20px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.commentCount {
+  font-size: 16px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.05);
+  padding: 2px 8px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.commentFormSection {
+  margin-bottom: 24px;
+}
+
+.errorMessage {
+  background: rgba(239, 68, 68, 0.1);
+  color: #fca5a5;
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin-bottom: 16px;
+  font-size: 14px;
+}
+
+.errorMessage p {
+  margin: 0;
+}
+
+.commentsList {
+  min-height: 100px;
+}
+
+.noComments {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 32px 20px;
+  text-align: center;
+  margin: 20px 0;
+}
+
+.noComments p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 15px;
+  font-weight: 400;
+}
+
+.loading,
+.loadingMore {
+  text-align: center;
+  padding: 24px;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 14px;
+}
+
+.loadingMore {
+  padding: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.loadMoreSection {
+  text-align: center;
+  margin: 20px 0;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.loadMoreButton {
+  background: rgba(59, 130, 246, 0.8);
+  color: white;
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  padding: 10px 20px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.loadMoreButton:hover:not(:disabled) {
+  background: rgba(59, 130, 246, 1);
+  border-color: rgba(59, 130, 246, 0.5);
+  transform: translateY(-1px);
+}
+
+.loadMoreButton:disabled {
+  background: rgba(156, 163, 175, 0.3);
+  cursor: not-allowed;
+  transform: none;
+  border-color: rgba(156, 163, 175, 0.2);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .commentsSection {
+    margin-top: 32px;
+  }
+
+  .sectionTitle {
+    font-size: 18px;
+  }
+
+  .commentCount {
+    font-size: 14px;
+  }
+
+  .noComments {
+    padding: 24px 16px;
+  }
+}

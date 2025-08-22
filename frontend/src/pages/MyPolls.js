@@ -1,5 +1,6 @@
 // src/pages/MyPolls.js
 import React, { useState, useEffect, useCallback } from "react";
+import API_BASE_URL from "../config/api";
 import axios from "axios";
 import styles from "./MyPolls.module.css";
 import PollCard from "../components/PollCard/PollCard";
@@ -22,11 +23,14 @@ const MyPolls = () => {
     setLoading(true);
     try {
       // Fetch user's polls specifically
-      const response = await axios.get("/api/polls/user/mypolls", {
-        headers: {
-          Authorization: user ? `Bearer ${user.token}` : "",
-        },
-      });
+      const response = await axios.get(
+        `${API_BASE_URL}/api/polls/user/mypolls`,
+        {
+          headers: {
+            Authorization: user ? `Bearer ${user.token}` : "",
+          },
+        }
+      );
 
       if (response.status === 200) {
         console.log("Frontend: Data fetched for My Polls:", response.data);
@@ -60,11 +64,14 @@ const MyPolls = () => {
       return;
     }
     try {
-      const response = await axios.delete(`/api/polls/${pollId}`, {
-        headers: {
-          Authorization: user ? `Bearer ${user.token}` : "",
-        },
-      });
+      const response = await axios.delete(
+        `${API_BASE_URL}/api/polls/${pollId}`,
+        {
+          headers: {
+            Authorization: user ? `Bearer ${user.token}` : "",
+          },
+        }
+      );
 
       if (response.status === 200) {
         // Remove from local state

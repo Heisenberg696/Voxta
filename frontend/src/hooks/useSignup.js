@@ -1,4 +1,5 @@
 import { useState } from "react";
+import API_BASE_URL from "../config/api";
 import axios from "axios";
 import { useAuthContext } from "./useAuthContext";
 
@@ -12,7 +13,7 @@ export const useSignup = () => {
     setIsLoading(true);
 
     try {
-      const response = await axios.post("/api/user/signup", {
+      const response = await axios.post(`${API_BASE_URL}/api/user/signup`, {
         username,
         email,
         password,

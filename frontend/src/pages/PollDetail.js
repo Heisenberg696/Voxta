@@ -1,9 +1,11 @@
 // src/pages/PollDetail.js
 import React, { useState, useEffect } from "react";
+import API_BASE_URL from "../config/api";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import styles from "./PollDetail.module.css";
 import ResultsChart from "../components/ResultsChart/ResultsChart";
+import CommentsSection from "../components/CommentsSection/CommentsSection";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { usePollContext } from "../hooks/usePollContext";
 
@@ -15,14 +17,14 @@ const PollDetail = () => {
   const [poll, setPoll] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [selectedOption, setSelectedOption] = useState(null); // Chart should always show, so showResults is effectively managed by poll data presence
+  const [selectedOption, setSelectedOption] = useState(null);
   const [userAlreadyVoted, setUserAlreadyVoted] = useState(false);
 
   useEffect(() => {
     const fetchPoll = async () => {
       setLoading(true);
       try {
-        const response = await axios.get(`/api/polls/${id}`, {
+        const response = await axios.get(`${API_BASE_URL}/api/polls/${id}`, {
           headers: {
             Authorization: user ? `Bearer ${user.token}` : "",
           },
@@ -30,10 +32,30 @@ const PollDetail = () => {
 
         if (response.status === 200) {
           const data = response.data;
-          setPoll(data); // Check if the logged-in user has already voted
+          setPoll(data);
 
-          if (user && data.votedBy.includes(user._id)) {
+          // Check if the logged-in user has already voted
+          // Use userVote presence as the primary indicator, fallback to votedBy array
+          const hasVoted =
+            data.userVote || (user && data.votedBy.includes(user._id));
+
+          if (hasVoted) {
             setUserAlreadyVoted(true);
+
+            // If user has voted, highlight their chosen option
+            if (data.userVote) {
+              const votedOption = data.options.find(
+                (opt) =>
+                  opt._id.toString() === data.userVote.optionId.toString()
+              );
+              if (votedOption) {
+                setSelectedOption(votedOption);
+              }
+            }
+          } else {
+            // Reset states if user hasn't voted
+            setUserAlreadyVoted(false);
+            setSelectedOption(null);
           }
           setError(null);
         } else {
@@ -76,7 +98,7 @@ const PollDetail = () => {
 
     try {
       const response = await axios.patch(
-        `/api/polls/${id}/vote`,
+        `${API_BASE_URL}/api/polls/${id}/vote`,
         { option: selectedOption.option, userId: user._id },
         {
           headers: {
@@ -96,7 +118,7 @@ const PollDetail = () => {
 
         setPoll(pollToUpdate);
         pollDispatch({ type: "VOTE_POLL", payload: pollToUpdate });
-        setUserAlreadyVoted(true); // setShowResults(true); // No longer explicitly set here, it's always shown
+        setUserAlreadyVoted(true);
         setError(null);
       } else {
         throw new Error(response.statusText || "Failed to submit vote");
@@ -106,6 +128,17 @@ const PollDetail = () => {
         err.response?.data?.error || err.message || "An unknown error occurred"
       );
     }
+  };
+
+  // Handle option selection - prevent changing if already voted
+  const handleOptionSelect = (option) => {
+    if (userAlreadyVoted) {
+      // Clear any existing error and show appropriate message
+      setError("You have already voted on this poll.");
+      return; // Don't allow selection change if already voted
+    }
+    setSelectedOption(option);
+    setError(null); // Clear any previous errors
   };
 
   if (loading)
@@ -124,35 +157,63 @@ const PollDetail = () => {
   return (
     <div className={styles.pollDetail}>
       <h1 className={styles.question}>{poll.question}</h1>
-      <div className={styles.optionsList}>
-        {poll.options.map((option) => (
-          <div
-            key={option._id}
-            className={`${styles.option} ${
-              selectedOption?._id === option._id ? styles.selected : ""
-            } ${userAlreadyVoted ? styles.disabled : ""}`}
-            onClick={() => !userAlreadyVoted && setSelectedOption(option)}
-          >
-            <span className={styles.radioCustom}></span>
-            {/* Custom radio button indicator */}
-            <span className={styles.optionText}>{option.option}</span>
-          </div>
-        ))}
-      </div>
-      {!user && <p className={styles.loginMessage}>Please log in to vote.</p>}{" "}
-      <button
-        className={styles.submitButton}
-        onClick={handleVote}
-        disabled={!canVote}
-      >
-        {submitButtonText}
-      </button>
-      {/* The Results section is always displayed */}
-      <div className={styles.resultsSection}>
-        <h2 className={styles.resultsTitle}>Results</h2>
 
-        <ResultsChart options={poll.options} totalVotes={poll.totalVotes} />
+      <div className={styles.contentWrapper}>
+        {/* Voting Column */}
+        <div className={styles.votingColumn}>
+          {!user && (
+            <p className={styles.loginMessage}>
+              Please log in to participate in this poll.
+            </p>
+          )}
+
+          <div className={styles.optionsList}>
+            {poll.options.map((option) => (
+              <div
+                key={option._id}
+                className={`${styles.option} ${
+                  selectedOption?._id === option._id ? styles.selected : ""
+                } ${userAlreadyVoted ? styles.disabled : ""}`}
+                onClick={() => handleOptionSelect(option)}
+                style={{ cursor: userAlreadyVoted ? "not-allowed" : "pointer" }}
+              >
+                <span className={styles.radioCustom}></span>
+                <span className={styles.optionText}>{option.option}</span>
+              </div>
+            ))}
+          </div>
+
+          <button
+            className={styles.submitButton}
+            onClick={handleVote}
+            disabled={!canVote}
+          >
+            {submitButtonText}
+          </button>
+
+          {error && <div className={styles.errorMessage}>{error}</div>}
+        </div>
+
+        {/* Results Column */}
+        <div className={styles.resultsColumn}>
+          <div className={styles.resultsSection}>
+            <h2 className={styles.resultsTitle}>Results</h2>
+            <div className={styles.chartContainer}>
+              <ResultsChart
+                options={poll.options}
+                totalVotes={poll.totalVotes}
+              />
+            </div>
+          </div>
+        </div>
       </div>
+
+      {/* Comments Section */}
+      {user && (
+        <div className={styles.commentsWrapper}>
+          <CommentsSection pollId={id} />
+        </div>
+      )}
     </div>
   );
 };

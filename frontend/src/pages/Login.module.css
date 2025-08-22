@@ -89,3 +89,36 @@
 .loginLink a:hover {
   text-decoration: underline;
 }
+
+/* Center forms to middle-right */
+.container {
+  display: flex;
+  justify-content: center; /* Push form to right */
+  align-items: center; /* Center vertically */
+  height: calc(100vh - 85px); /* Full height minus navbar padding */
+  padding-right: 5rem; /* Adjust distance from right edge */
+}
+
+.passwordWrapper {
+  position: relative;
+  width: 100%;
+}
+
+.passwordWrapper input {
+  width: 100%;
+  padding-right: 2.5rem; /* space for the eye icon */
+}
+
+.toggleIcon {
+  position: absolute;
+  right: 10px;
+  top: 40%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  font-size: 1.1rem;
+  color: #a0aec0;
+}
+
+.toggleIcon:hover {
+  color: #ffffff;
+}

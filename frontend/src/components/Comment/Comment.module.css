@@ -1,0 +1,380 @@
+.comment {
+  background: transparent;
+  border-radius: 0;
+  padding: 16px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.comment:hover {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.comment:last-child {
+  border-bottom: none;
+}
+
+.topLevel {
+  border: none;
+  border-radius: 0;
+  padding: 20px 0;
+  margin-bottom: 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.topLevel:hover {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.reply {
+  background: transparent;
+  border-left: 2px solid rgba(255, 255, 255, 0.15);
+  margin-left: 40px;
+  padding-left: 16px;
+  margin-top: 0;
+  border-radius: 0;
+  border-bottom: none;
+}
+
+.reply:hover {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.commentHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 8px;
+}
+
+.userInfo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.username {
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 15px;
+}
+
+.timestamp {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.edited {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.4);
+  font-style: italic;
+}
+
+.commentActions {
+  display: flex;
+  gap: 4px;
+  opacity: 0.6;
+  transition: all 0.3s ease;
+}
+
+.comment:hover .commentActions {
+  opacity: 1;
+}
+
+.actionButton {
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 12px;
+  cursor: pointer;
+  padding: 6px 8px;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.actionButton:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.actionButton:disabled {
+  cursor: not-allowed;
+  opacity: 0.3;
+}
+
+.deleteButton {
+  color: rgba(239, 68, 68, 0.7);
+}
+
+.deleteButton:hover:not(:disabled) {
+  background: rgba(239, 68, 68, 0.1);
+  color: rgba(239, 68, 68, 1);
+}
+
+.commentBody {
+  margin-bottom: 8px;
+}
+
+.content {
+  margin: 0;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 15px;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.deletedContent {
+  color: rgba(255, 255, 255, 0.4);
+  font-style: italic;
+}
+
+.editForm {
+  margin-bottom: 12px;
+}
+
+.editTextarea {
+  width: 100%;
+  border: none;
+  border-radius: 20px;
+  padding: 12px 16px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif;
+  font-size: 15px;
+  line-height: 1.5;
+  resize: none;
+  min-height: 80px;
+  background: rgba(255, 255, 255, 0.05);
+  color: rgba(255, 255, 255, 0.9);
+  transition: all 0.3s ease;
+}
+
+.editTextarea:focus {
+  outline: none;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.editTextarea::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.editActions {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.saveButton {
+  background: rgba(34, 197, 94, 0.9);
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 18px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.saveButton:hover:not(:disabled) {
+  background: rgba(34, 197, 94, 1);
+  transform: translateY(-1px);
+}
+
+.saveButton:disabled {
+  background: rgba(156, 163, 175, 0.4);
+  cursor: not-allowed;
+  transform: none;
+}
+
+.cancelButton {
+  background: transparent;
+  color: rgba(255, 255, 255, 0.6);
+  border: none;
+  padding: 8px 16px;
+  border-radius: 18px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.cancelButton:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.commentFooter {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 8px;
+}
+
+.replyButton {
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+.replyButton:hover {
+  color: #60a5fa;
+  background: rgba(59, 130, 246, 0.1);
+}
+
+.replyCount {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.05);
+  padding: 2px 8px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.replyFormContainer {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.repliesContainer {
+  margin-top: 12px;
+}
+
+.loadMoreButton {
+  background: transparent;
+  border: none;
+  color: rgba(59, 130, 246, 0.8);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 8px 0;
+  margin-left: 40px;
+  transition: all 0.3s ease;
+}
+
+.loadMoreButton:hover {
+  color: rgba(59, 130, 246, 1);
+}
+
+/* Loading and error states */
+.deleting {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.deleting::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .comment {
+    padding: 12px 0;
+  }
+
+  .topLevel {
+    padding: 16px 0;
+  }
+
+  .reply {
+    margin-left: 28px;
+    padding-left: 12px;
+  }
+
+  .commentHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .commentActions {
+    opacity: 1;
+    align-self: flex-end;
+    margin-top: -4px;
+  }
+
+  .editActions {
+    flex-direction: column;
+  }
+
+  .loadMoreButton {
+    margin-left: 28px;
+  }
+
+  .userInfo {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+}
+
+/* Smooth animations */
+@keyframes slideInComment {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+}
+
+.comment {
+  animation: slideInComment 0.4s ease-out;
+}
+
+.comment.deleting {
+  animation: fadeOut 0.3s ease-in forwards;
+}
+
+/* Hover effects for better interactivity */
+.comment::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 2px;
+  height: 100%;
+  background: rgba(59, 130, 246, 0.5);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.comment:hover::before {
+  opacity: 1;
+}
+
+.topLevel::before {
+  display: none;
+}

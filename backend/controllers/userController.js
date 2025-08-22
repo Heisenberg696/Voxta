@@ -13,7 +13,14 @@ const loginUser = async (req, res) => {
   try {
     const user = await User.login(email, password);
     const token = createToken(user._id);
-    res.status(200).json({ username: user.username, email: user.email, token });
+
+    // Include _id in the response
+    res.status(200).json({
+      _id: user._id, // Added this line
+      username: user.username,
+      email: user.email,
+      token,
+    });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
@@ -26,7 +33,14 @@ const signupUser = async (req, res) => {
   try {
     const user = await User.signup(username, email, password);
     const token = createToken(user._id);
-    res.status(200).json({ username, email, token });
+
+    // Include _id in the response
+    res.status(200).json({
+      _id: user._id, // Added this line
+      username,
+      email,
+      token,
+    });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }

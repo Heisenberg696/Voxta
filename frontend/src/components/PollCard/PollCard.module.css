@@ -1,148 +1,268 @@
 /* src/components/PollCard/PollCard.module.css */
 
 .cardLink {
-  text-decoration: none; /* Remove underline from Link */
-  color: inherit; /* Inherit text color */
+  text-decoration: none;
+  color: inherit;
   width: 100%;
 }
 
 .pollCard {
   display: flex;
   align-items: center;
-  background-color: #2d3748; /* Darker blue/grey background */
-  border-radius: 12px; /* More rounded corners */
-  padding: 1.5rem 2rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s ease-in-out;
+  background-color: #2d3748;
+  border-radius: 12px;
+  padding: 1.25rem 1.75rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  transition: all 0.2s ease-in-out;
   cursor: pointer;
+  border: 1px solid transparent;
+  position: relative;
+  overflow: hidden;
+}
+
+.pollCard::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.02) 0%,
+    transparent 50%
+  );
+  pointer-events: none;
 }
 
 .pollCard:hover {
-  transform: translateY(-5px); /* Lift effect on hover */
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  border-color: rgba(255, 255, 255, 0.1);
 }
 
 .votesContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-right: 2rem;
-  flex-shrink: 0; /* Prevent it from shrinking */
+  margin-right: 1.5rem;
+  flex-shrink: 0;
+  min-width: 50px;
 }
 
 .votesCount {
-  font-size: 2.2rem;
+  font-size: 2rem;
   font-weight: 700;
-  color: #4fd1c5; /* Teal color for votes */
+  color: #4fd1c5;
+  line-height: 1;
+  margin-bottom: 2px;
 }
 
 .votesText {
-  font-size: 0.9rem;
-  color: #a0aec0; /* Lighter grey for "votes" text */
+  font-size: 0.75rem;
+  color: #718096;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.8px;
+  font-weight: 500;
 }
 
 .content {
-  flex-grow: 1; /* Allow content to take available space */
+  flex-grow: 1;
+  min-width: 0; /* Prevents flex item from overflowing */
 }
 
 .categoryBadge {
-  display: inline-block;
-  padding: 0.3rem 0.7rem;
-  border-radius: 9999px; /* Pill shape */
-  font-size: 0.8rem;
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
   font-weight: 600;
-  margin-bottom: 0.5rem;
-  /* Dynamic background colors based on image categories */
-  background-color: #6b46c1; /* Example: Purple for Travel & Leisure */
   color: #ffffff;
-}
-
-/* Example category-specific colors (you'll need to implement logic to apply these) */
-.pollCard:nth-child(1) .categoryBadge {
-  background-color: #6b46c1; /* Travel & Leisure */
-}
-.pollCard:nth-child(2) .categoryBadge {
-  background-color: #dd6b20; /* Technology */
-}
-.pollCard:nth-child(3) .categoryBadge {
-  background-color: #38a169; /* Food & Drink */
-}
-.pollCard:nth-child(4) .categoryBadge {
-  background-color: #d53f8c; /* Music */
-}
-.pollCard:nth-child(5) .categoryBadge {
-  background-color: #e53e3e; /* Entertainment */
-}
-.pollCard:nth-child(6) .categoryBadge {
-  background-color: #ecc94b; /* Lifestyle */
+  flex-shrink: 0;
+  margin-bottom: 0.75rem;
+  text-transform: capitalize;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  /* Background color will be set dynamically via inline styles */
 }
 
 .question {
-  font-size: 1.3rem;
+  font-size: 1.25rem;
   font-weight: 600;
   color: #ffffff;
-  margin-bottom: 0.3rem;
+  margin-bottom: 0.75rem;
+  line-height: 1.4;
+  word-wrap: break-word;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 0.25rem;
 }
 
 .creator {
-  font-size: 0.9rem;
-  color: #a0aec0;
+  font-size: 0.875rem;
+  color: #9ca3af;
+  margin: 0;
+  font-weight: 500;
 }
 
-/* Styles for the Vote Button (already there, just ensuring consistency) */
+.timestamp {
+  font-size: 0.75rem;
+  color: #6b7280;
+  font-weight: 500;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
 .voteButton {
-  background-color: #4299e1; /* Blue for the vote button */
+  background: linear-gradient(135deg, #4299e1 0%, #3182ce 100%);
   color: #ffffff;
   border: none;
-  padding: 0.75rem 1.5rem;
+  padding: 0.75rem 1.25rem;
   border-radius: 8px;
-  font-size: 1rem;
+  font-size: 0.9rem;
   font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
   flex-shrink: 0;
-  margin-left: 2rem;
+  margin-left: 1.5rem;
+  box-shadow: 0 2px 4px rgba(66, 153, 225, 0.3);
+  min-width: 70px;
 }
 
 .voteButton:hover {
-  background-color: #3182ce; /* Darker blue on hover */
+  background: linear-gradient(135deg, #3182ce 0%, #2c5aa0 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(66, 153, 225, 0.4);
 }
 
-/* --- NEW STYLES FOR ACTION BUTTONS --- */
+.voteButton:active {
+  transform: translateY(0);
+}
+
 .actionButtons {
   display: flex;
-  gap: 0.75rem; /* Space between update and delete buttons */
-  margin-left: 2rem;
+  gap: 0.5rem;
+  margin-left: 1.5rem;
   flex-shrink: 0;
 }
 
 .updateButton,
 .deleteButton {
-  background: none; /* No background by default */
-  border: none;
+  background: rgba(45, 55, 72, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   cursor: pointer;
-  padding: 0.75rem; /* Padding to make them clickable */
+  padding: 0.6rem;
   border-radius: 8px;
-  display: flex; /* For icon centering */
+  display: flex;
   align-items: center;
   justify-content: center;
-  transition: background-color 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+  backdrop-filter: blur(10px);
 }
 
 .updateButton {
-  color: #4fd1c5; /* Teal for update icon */
+  color: #4fd1c5;
 }
 
 .updateButton:hover {
-  background-color: #384252; /* Slight dark background on hover */
+  background: rgba(79, 209, 197, 0.1);
+  border-color: rgba(79, 209, 197, 0.3);
+  transform: translateY(-1px);
 }
 
 .deleteButton {
-  color: #e53e3e; /* Red for delete icon */
+  color: #fc8181;
 }
 
 .deleteButton:hover {
-  background-color: #384252; /* Slight dark background on hover */
+  background: rgba(229, 62, 62, 0.1);
+  border-color: rgba(229, 62, 62, 0.3);
+  transform: translateY(-1px);
 }
-/* --- END NEW STYLES --- */
+
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+  .pollCard {
+    padding: 1rem 1.25rem;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .votesContainer {
+    margin-right: 0;
+    align-self: flex-start;
+    flex-direction: row;
+    gap: 0.5rem;
+    align-items: center;
+  }
+
+  .votesCount {
+    font-size: 1.5rem;
+    margin-bottom: 0;
+  }
+
+  .votesText {
+    font-size: 0.7rem;
+  }
+
+  .content {
+    width: 100%;
+  }
+
+  .footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .timestamp {
+    align-self: flex-end;
+    margin-top: -1.5rem;
+  }
+
+  .question {
+    font-size: 1.125rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .voteButton {
+    align-self: stretch;
+    margin-left: 0;
+    padding: 0.875rem;
+    text-align: center;
+  }
+
+  .actionButtons {
+    align-self: stretch;
+    margin-left: 0;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .pollCard {
+    padding: 0.875rem 1rem;
+  }
+
+  .question {
+    font-size: 1rem;
+  }
+
+  .votesCount {
+    font-size: 1.25rem;
+  }
+
+  .creator {
+    font-size: 0.8rem;
+  }
+
+  .timestamp {
+    font-size: 0.7rem;
+  }
+}

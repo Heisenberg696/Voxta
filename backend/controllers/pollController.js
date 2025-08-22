@@ -9,7 +9,7 @@ const createPoll = async (req, res) => {
   try {
     const poll = await Poll.create({
       question,
-      options, // should be array of objects like { option: "Yes" }
+      options,
       category,
       createdBy,
     });
@@ -22,13 +22,9 @@ const createPoll = async (req, res) => {
 // Get all polls
 const getAllPolls = async (req, res) => {
   try {
-    // Populate the createdBy field to get the user data (like username)
     const polls = await Poll.find({})
       .populate("createdBy", "username")
-      .sort({ createdAt: -1 }); // Map over polls to calculate the total votes for each poll
-
-    // --- ADD THIS CONSOLE LOG HERE ---
-    console.log("Backend: Polls after population:", polls); // ---------------------------------
+      .sort({ createdAt: -1 });
 
     const pollsWithTotalVotes = polls.map((poll) => {
       const totalVotes = poll.options.reduce(
@@ -48,7 +44,7 @@ const getAllPolls = async (req, res) => {
   }
 };
 
-// Get a single poll by ID
+// UPDATED: Get a single poll by ID
 const getPollById = async (req, res) => {
   try {
     const { id } = req.params;
@@ -63,10 +59,26 @@ const getPollById = async (req, res) => {
       0
     );
 
+    let userVote = null;
+    // If user is authenticated, find their specific vote
+    if (req.user) {
+      const userVoteRecord = poll.userVotes.find(
+        (vote) => vote.userId.toString() === req.user._id.toString()
+      );
+      if (userVoteRecord) {
+        userVote = {
+          optionId: userVoteRecord.optionId,
+          optionText: userVoteRecord.optionText,
+          votedAt: userVoteRecord.votedAt,
+        };
+      }
+    }
+
     res.status(200).json({
       ...poll.toObject(),
       totalVotes,
       creatorUsername: poll.createdBy.username,
+      userVote, // Include user's specific vote if they voted
     });
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -78,7 +90,7 @@ const getUserPolls = async (req, res) => {
   const userId = req.user._id;
   try {
     const polls = await Poll.find({ createdBy: userId })
-      .populate("createdBy", "username") // Populate the creator's username
+      .populate("createdBy", "username")
       .sort({ createdAt: -1 });
 
     const pollsWithDetails = polls.map((poll) => {
@@ -87,11 +99,11 @@ const getUserPolls = async (req, res) => {
         0
       );
       return {
-        ...poll.toObject(), // Convert Mongoose document to plain object
+        ...poll.toObject(),
         totalVotes,
         creatorUsername: poll.createdBy
           ? poll.createdBy.username
-          : "Unknown User", // Add creatorUsername with fallback
+          : "Unknown User",
       };
     });
 
@@ -100,6 +112,7 @@ const getUserPolls = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
 // Update a poll
 const updatePoll = async (req, res) => {
   const { id } = req.params;
@@ -138,12 +151,11 @@ const deletePoll = async (req, res) => {
   }
 };
 
-// New Vote on a poll
-
+// UPDATED: Vote on a poll
 const voteOnPoll = async (req, res) => {
   const { pollId } = req.params;
   const { option } = req.body;
-  const userId = req.user._id; // Get the authenticated user's ID
+  const userId = req.user._id;
 
   try {
     const poll = await Poll.findById(pollId);
@@ -151,8 +163,12 @@ const voteOnPoll = async (req, res) => {
       return res.status(404).json({ error: "Poll not found" });
     }
 
-    // Check if user has already voted on this poll
-    if (poll.votedBy.includes(userId)) {
+    // Check if user has already voted using the new userVotes array
+    const existingVote = poll.userVotes.find(
+      (vote) => vote.userId.toString() === userId.toString()
+    );
+
+    if (existingVote) {
       return res
         .status(400)
         .json({ error: "You have already voted on this poll" });
@@ -167,8 +183,15 @@ const voteOnPoll = async (req, res) => {
     // Increment the vote count
     selectedOption.votes += 1;
 
-    // Add user to votedBy array to prevent duplicate voting
+    // Add user to votedBy array (keep for backward compatibility)
     poll.votedBy.push(userId);
+
+    // Add detailed vote record to track which option they chose
+    poll.userVotes.push({
+      userId: userId,
+      optionId: selectedOption._id,
+      optionText: selectedOption.option,
+    });
 
     // Save updated poll
     await poll.save();
@@ -183,14 +206,13 @@ const voteOnPoll = async (req, res) => {
   }
 };
 
-// get polls voted by a particular user
+// Get polls voted by a particular user
 const getPollsVotedByUser = async (req, res) => {
   const userId = req.user._id;
   try {
-    // Populate the createdBy field and sort
     const polls = await Poll.find({ votedBy: userId })
-      .populate("createdBy", "username") // Populate to get username
-      .sort({ createdAt: -1 }); // Map over polls to calculate total votes and include creatorUsername
+      .populate("createdBy", "username")
+      .sort({ createdAt: -1 });
 
     const pollsWithDetails = polls.map((poll) => {
       const totalVotes = poll.options.reduce(
@@ -198,11 +220,11 @@ const getPollsVotedByUser = async (req, res) => {
         0
       );
       return {
-        ...poll.toObject(), // Convert Mongoose document to plain object
+        ...poll.toObject(),
         totalVotes,
         creatorUsername: poll.createdBy
           ? poll.createdBy.username
-          : "Unknown User", // Add creatorUsername with fallback
+          : "Unknown User",
       };
     });
 

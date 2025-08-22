@@ -1,0 +1,167 @@
+.commentForm {
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  padding: 12px 0;
+  margin-bottom: 16px;
+  transition: all 0.3s ease;
+}
+
+.commentForm:focus-within {
+  background: transparent;
+}
+
+.formHeader {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.username {
+  font-weight: 600;
+  color: #60a5fa;
+  font-size: 14px;
+}
+
+.textarea {
+  width: 100%;
+  border: none;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 12px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif;
+  font-size: 15px;
+  line-height: 1.5;
+  resize: none;
+  min-height: 40px;
+  color: rgba(255, 255, 255, 0.9);
+  border-radius: 20px;
+  transition: all 0.3s ease;
+}
+
+.textarea:focus {
+  outline: none;
+  background: rgba(255, 255, 255, 0.08);
+  min-height: 80px;
+}
+
+.textarea::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 15px;
+}
+
+.textarea:disabled {
+  background-color: transparent;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.formFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 8px;
+  padding-top: 0;
+  border-top: none;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: all 0.3s ease;
+}
+
+.commentForm:focus-within .formFooter {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.charCount {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.buttonGroup {
+  display: flex;
+  gap: 8px;
+}
+
+.submitButton {
+  background: rgba(59, 130, 246, 0.9);
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 18px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 70px;
+}
+
+.submitButton:hover:not(:disabled) {
+  background: rgba(59, 130, 246, 1);
+  transform: translateY(-1px);
+}
+
+.submitButton:disabled {
+  background: rgba(156, 163, 175, 0.4);
+  cursor: not-allowed;
+  transform: none;
+}
+
+.cancelButton {
+  background: transparent;
+  color: rgba(255, 255, 255, 0.6);
+  border: none;
+  padding: 8px 16px;
+  border-radius: 18px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.cancelButton:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.cancelButton:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.loginPrompt {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  margin-bottom: 16px;
+  backdrop-filter: blur(10px);
+}
+
+.loginPrompt p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 14px;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .commentForm {
+    padding: 12px;
+  }
+
+  .formFooter {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .buttonGroup {
+    justify-content: flex-end;
+  }
+
+  .charCount {
+    text-align: left;
+  }
+}

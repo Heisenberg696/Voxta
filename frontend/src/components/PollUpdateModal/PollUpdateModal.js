@@ -1,5 +1,6 @@
 // src/components/PollUpdateModal/PollUpdateModal.js
 import React, { useState, useEffect } from "react";
+import API_BASE_URL from "../../config/api";
 import axios from "axios";
 import styles from "./PollUpdateModal.module.css"; // Create this CSS module next
 import { XCircle } from "lucide-react"; // For close icon (npm install lucide-react)
@@ -85,7 +86,7 @@ const PollUpdateModal = ({ poll, onClose, onUpdateSuccess }) => {
       }));
 
       const response = await axios.patch(
-        `/api/polls/${poll._id}`,
+        `${API_BASE_URL}/api/polls/${poll._id}`,
         { question, options: payloadOptions, category },
         {
           headers: {

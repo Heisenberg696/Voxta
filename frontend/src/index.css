@@ -1,20 +1,35 @@
-/* index.js */
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
+/* index.css */
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap");
 
-body {
-  margin: 0;
-  padding: 0;
-  font-family: "Inter", sans-serif;
-  background-color: #1a202c; /* Dark blue/black background from the image */
-  display: flex; /* Use flexbox for centering */
-  justify-content: center; /* Center horizontally */
-  align-items: flex-start; /* Center vertically */
-  min-height: 100vh; /* Ensure it takes full viewport height */
-  color: #ffffff; /* Default text color for the app */
-  padding-top: 5rem;
+/* Apply a better box-sizing model to all elements */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
-/* Basic reset for elements */
-* {
-  box-sizing: border-box;
+/* Basic reset for margin and padding */
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+figure,
+blockquote,
+dl,
+dd {
+  margin: 0;
+}
+
+body {
+  font-family: "Manrope", sans-serif;
+  background-color: #1a202c; /* Dark blue/black background */
+  color: #ffffff; /* Default text color */
+  min-height: 100vh;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  padding-top: 85px; /* Increased padding for the taller navbar */
+  font-weight: 400; /* Default font weight */
 }

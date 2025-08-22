@@ -58,11 +58,9 @@ const AppContent = () => {
 function App() {
   return (
     <div className="App">
-                     {" "}
       <Router>
-                    <AppContent />         {" "}
+        <AppContent />
       </Router>
-                 {" "}
     </div>
   );
 }
