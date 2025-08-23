@@ -9,7 +9,11 @@ const commentRoutes = require("./routes/commentRoutes");
 const app = express();
 
 const corsOptions = {
-  origin: "http://localhost:3000",
+  origin: [
+    "http://localhost:3000",
+    "https://voxta-3ecte53lw-swallieu-dawuds-projects.vercel.app", // Deployment URL
+    "https://voxta.vercel.app", // Custom domain
+  ],
   credentials: true,
   optionsSuccessStatus: 200,
   methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
