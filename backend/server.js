@@ -1,24 +1,4 @@
 require("dotenv").config();
-
-console.log("=== ENVIRONMENT DEBUG ===");
-console.log("NODE_ENV:", process.env.NODE_ENV);
-console.log("PORT:", process.env.PORT);
-console.log("MONGO_URI exists:", !!process.env.MONGO_URI);
-console.log(
-  "MONGO_URI (first 50 chars):",
-  process.env.MONGO_URI
-    ? process.env.MONGO_URI.substring(0, 50) + "..."
-    : "MISSING"
-);
-console.log("SECRET exists:", !!process.env.SECRET);
-console.log(
-  "All env keys:",
-  Object.keys(process.env).filter((key) =>
-    ["PORT", "MONGO_URI", "SECRET"].includes(key)
-  )
-);
-console.log("========================");
-
 const cors = require("cors");
 const express = require("express");
 const mongoose = require("mongoose");
@@ -31,7 +11,7 @@ const app = express();
 const corsOptions = {
   origin: [
     "http://localhost:3000",
-    "https://voxta-3ecte53lw-swallieu-dawuds-projects.vercel.app", // Deployment URL
+    "https://voxta-git-main-swallieu-dawuds-projects.vercel.app/login", // Deployment URL
     "https://voxta.vercel.app", // Custom domain
   ],
   credentials: true,
