@@ -1,59 +1,77 @@
-const User = require("../models/User");
-const jwt = require("jsonwebtoken");
+const mongoose = require("mongoose");
+const bcrypt = require("bcrypt");
+const validator = require("validator");
 
-// helper to create JWT
-const createToken = (_id) => {
-  return jwt.sign({ _id }, process.env.SECRET, { expiresIn: "3d" });
-};
+const Schema = mongoose.Schema;
 
-// login controller
-const loginUser = async (req, res) => {
-  const { email, password } = req.body;
-  console.log("Login attempt for email:", email);
+const userSchema = new Schema({
+  username: {
+    type: String,
+    required: true,
+    trim: true,
+    unique: true,
+  },
+  email: {
+    type: String,
+    required: true,
+    trim: true,
+    unique: true,
+  },
 
-  try {
-    console.log("Attempting User.login...");
-    const user = await User.login(email, password);
-    console.log("User login successful, creating token...");
-    const token = createToken(user._id);
-    console.log("Token created successfully");
+  password: {
+    type: String,
+    required: true,
+  },
+});
 
-    res.status(200).json({
-      _id: user._id,
-      username: user.username,
-      email: user.email,
-      token,
-    });
-  } catch (error) {
-    console.error("Login error:", error.message);
-    console.error("Login error stack:", error.stack);
-    res.status(400).json({ error: error.message });
+// STATIC SIGNUP METHOD
+userSchema.statics.signup = async function (username, email, password) {
+  if (!username || !email || !password) {
+    throw Error("All fields are required");
   }
-};
-
-// signup controller
-const signupUser = async (req, res) => {
-  const { username, email, password } = req.body;
-  console.log("Signup attempt for:", { username, email });
-
-  try {
-    console.log("Attempting User.signup...");
-    const user = await User.signup(username, email, password);
-    console.log("User signup successful, creating token...");
-    const token = createToken(user._id);
-    console.log("Token created successfully");
-
-    res.status(200).json({
-      _id: user._id,
-      username,
-      email,
-      token,
-    });
-  } catch (error) {
-    console.error("Signup error:", error.message);
-    console.error("Signup error stack:", error.stack);
-    res.status(400).json({ error: error.message });
+  if (!validator.isEmail(email)) {
+    throw Error("A valid email is required");
   }
+
+  if (!validator.isStrongPassword(password)) {
+    throw Error("Provide a stronger password");
+  }
+
+  const emailExists = await this.findOne({ email });
+  if (emailExists) {
+    throw Error("Email already exists");
+  }
+
+  const usernameExists = await this.findOne({ username });
+  if (usernameExists) {
+    throw Error("Username already exists");
+  }
+
+  const salt = await bcrypt.genSalt(10);
+  const hash = await bcrypt.hash(password, salt);
+
+  const user = await this.create({ username, email, password: hash });
+
+  return user;
 };
 
-module.exports = { loginUser, signupUser };
+// STATIC LOGIN METHOD
+userSchema.statics.login = async function (email, password) {
+  if (!email || !password) {
+    throw Error("All fields are required");
+  }
+
+  const user = await this.findOne({ email });
+  if (!user) {
+    throw Error("Incorrect email");
+  }
+
+  const match = await bcrypt.compare(password, user.password);
+  if (!match) {
+    throw Error("Incorrect password");
+  }
+
+  return user;
+};
+
+module.exports = mongoose.model("User", userSchema);
