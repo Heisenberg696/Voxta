@@ -16,7 +16,7 @@ const loginUser = async (req, res) => {
 
     // Include _id in the response
     res.status(200).json({
-      _id: user._id, // Added this line
+      _id: user._id,
       username: user.username,
       email: user.email,
       token,
