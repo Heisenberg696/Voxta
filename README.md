@@ -1,6 +1,9 @@
 Voxta is a MERN-stack application enabling authenticated poll creation, category-based organization, and real-time vote tracking, built with a modular and maintainable architecture.
 
-🔗 Live Demo: [voxta.vercel.app](https://voxta.vercel.app)
+🔗 Live Site: [voxta.vercel.app](https://voxta.vercel.app)
+
+🔗 Video Demo on Youtube: https://youtu.be/obATx2SI1aA?si=lcHomfG3CIrzHSIo
+
 
  ✨ Features
 
